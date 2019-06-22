@@ -2,6 +2,7 @@
 <h1 align='center'>Simulated Time</h1>
 
 <p align="center">A testing (and partial) replacement for Python's <code>time</code> package, for fully-controlled time-dependent tests.</p>
+<p align="center"><a href="https://pypi.org/project/stime"><img alt="PyPI" src="https://img.shields.io/pypi/v/stime.svg" /></a></p>
 
 <br /><br />
 
@@ -71,6 +72,46 @@ class TestTimer(unittest.TestCase):
 - ③ Reset it as often as needed...
 - ④ Fast-forward when convenient...
 - ⑤ or progress one second at a time!
+
+Development
+-----------
+
+### Getting started
+
+Optionally, create a virtual environment for this project and activate it.
+
+```bash
+python -m venv timer_venv # assuming Python 3
+. timer_venv/bin/activate
+```
+
+Then do your thing!
+
+```bash
+# run the example test suite:
+python test_timer.py
+
+# once you're done deactivate the virtual environment if you use one:
+deactivate
+```
+
+### Release
+
+```bash
+# Install the latest setuptools and wheel (in a virtual environment eventually)
+pip install --upgrade setuptools wheel
+
+# Update the package version number and tag it:
+vim setup.py
+git tag -a 'v1.0.0' -m 'Initial release'
+git push origin master --tags
+
+# Build the distribution files
+make build
+
+# And upload them to PyPI
+make upload_to_pypi
+```
 
 Credits
 -------
