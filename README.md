@@ -7,7 +7,7 @@
 
 Testing functions that depend on time is always tricky, and can take long. To save time and avoid relying on `time.sleep()`, this package allows to fast-forward time arbitrarily.
 
-It implements the functions `time.time()` and `time.monotonic()`.
+It implements the functions `stime.time()` and `stime.monotonic()`.
 
 <br />
 
@@ -39,7 +39,7 @@ Once your code is using `stime`, you can precisely control the output of `stime.
 class Timer:
   """A timer the rings for 5 seconds when an alarm time is reached."""
 
-  def __init__(time_source): # the time source is injected here, which is nice
+  def __init__(self, time_source): # the time source is injected here, which is nice
     """Creates a new timer based on a time source.
 
     An adequate time source would typically be the time package
@@ -63,10 +63,9 @@ class Timer:
     """Whether the timer is ringing."""
     now = self.time_source.time() # depends on the current time!
     if self.alarm_time <= now <= self.alarm_time + 5:
-      return true
+      return True
     else:
-      return false
-
+      return False
 ```
 
 ```python
@@ -78,35 +77,40 @@ from timer import Timer # your package with time-dependent functions to be teste
 
 class TestTimer(unittest.TestCase):
 
-    def setup(self):
-      # create a new timer using stime as a time source
-      cooking_timer = Timer(time_source: stime)
-      cooking_timer.set_alarm(1561120200) # Unix timestamp for 06 June 2019 around noon
-
     def test_timer_does_not_ring_before_set_time(self):
-        setup()
+        # create a new timer using stime as a time source
+        cooking_timer = Timer(time_source=stime)
+        cooking_timer.set_alarm(1561120200) # Unix timestamp for 06 June 2019 around noon
 
         stime.reset(1561120199) # a second before alarm time
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
-        self.assertEqual(is_ringing, false, "expected the timer NOT to ring before alarm time")
+        self.assertEqual(is_ringing, False, "expected the timer NOT to ring before alarm time")
 
     def test_timer_rings_at_set_time(self):
-        setup()
+        # create a new timer using stime as a time source
+        cooking_timer = Timer(time_source=stime)
+        cooking_timer.set_alarm(1561120200) # Unix timestamp for 06 June 2019 around noon
 
         stime.reset(1561120200) # exactly alarm time
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
-        self.assertEqual(is_ringing, true, "expected the timer to ring at alarm time")
+        self.assertEqual(is_ringing, True, "expected the timer to ring at alarm time")
 
     def test_timer_rings_for_five_seconds(self):
-        setup()
+        # create a new timer using stime as a time source
+        cooking_timer = Timer(time_source=stime)
+        cooking_timer.set_alarm(1561120200) # Unix timestamp for 06 June 2019 around noon
 
         stime.reset(1561120205) # 5 seconds after alarm time
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
-        self.assertEqual(is_ringing, true, "expected the timer to ring 5 seconds after alarm time")
+        self.assertEqual(is_ringing, True, "expected the timer to be ringing 5 seconds after alarm time")
 
         stime.tick() # add 1 more second
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
-        self.assertEqual(is_ringing, false, "expected the timer NOT to ring 6 seconds after alarm time")
+        self.assertEqual(is_ringing, False, "expected the timer NOT to be ringing 6 seconds after alarm time")
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestTimer)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 ```
 
 Credits

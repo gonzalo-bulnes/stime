@@ -1,1 +1,1 @@
-from stime import *
+from stime.stime import *
