@@ -29,89 +29,48 @@ Once your code is using `stime`, you can precisely control the output of `stime.
 - **`tick(n)`**: increments the current time by `n` seconds (e.g. `1.3` seconds)
 - **`reset(t)`**: (re-)sets the current time to the timestamp `t` (e.g. `1561120200`)
 
-### Example using dependency injection
+### Example
 
-```python
-# timer.py
-
-# An example timer that conveniently injects its time source dependency.
-
-class Timer:
-  """A timer the rings for 5 seconds when an alarm time is reached."""
-
-  def __init__(self, time_source): # the time source is injected here, which is nice
-    """Creates a new timer based on a time source.
-
-    An adequate time source would typically be the time package
-    from the standard library.
-
-    Example:
-
-            import time
-            from timer import Timer
-
-            reminder = Timer(time_source: time)
-
-    """
-    self.time_source = time_source
-
-  def set_alarm(self, time):
-    """Sets and alarm time using a timestamp."""
-    self.alarm_time = time
-
-  def is_ringing(self):
-    """Whether the timer is ringing."""
-    now = self.time_source.time() # depends on the current time!
-    if self.alarm_time <= now <= self.alarm_time + 5:
-      return True
-    else:
-      return False
-```
+Find the full code for this example in [`examples/timer`](./examples/timer)!
 
 ```python
 # test_timer.py
 
 import unittest
-import stime
+import stime # ①
 from timer import Timer # your package with time-dependent functions to be tested
 
 class TestTimer(unittest.TestCase):
 
-    def test_timer_does_not_ring_before_set_time(self):
+    def test_timer_rings_for_five_seconds_starting_at_alarm_time(self):
         # create a new timer using stime as a time source
         cooking_timer = Timer(time_source=stime)
-        cooking_timer.set_alarm(1561120200) # Unix timestamp for 06 June 2019 around noon
+        cooking_timer.set_alarm(1561120200) # Unix timestamp for 21 June 2019 around noon
 
-        stime.reset(1561120199) # a second before alarm time
+        stime.reset(1561120199) # ② a second before alarm time
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
         self.assertEqual(is_ringing, False, "expected the timer NOT to ring before alarm time")
 
-    def test_timer_rings_at_set_time(self):
-        # create a new timer using stime as a time source
-        cooking_timer = Timer(time_source=stime)
-        cooking_timer.set_alarm(1561120200) # Unix timestamp for 06 June 2019 around noon
-
-        stime.reset(1561120200) # exactly alarm time
+        stime.reset(1561120200) # ③ exactly alarm time
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
         self.assertEqual(is_ringing, True, "expected the timer to ring at alarm time")
 
-    def test_timer_rings_for_five_seconds(self):
-        # create a new timer using stime as a time source
-        cooking_timer = Timer(time_source=stime)
-        cooking_timer.set_alarm(1561120200) # Unix timestamp for 06 June 2019 around noon
-
-        stime.reset(1561120205) # 5 seconds after alarm time
+        stime.tick(5) # ④ 5 seconds after alarm time
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
         self.assertEqual(is_ringing, True, "expected the timer to be ringing 5 seconds after alarm time")
 
-        stime.tick() # add 1 more second
+        stime.tick() # ⑤ add 1 more second
         is_ringing = cooking_timer.is_ringing() # calls stime.time() because it is the timer time_source
         self.assertEqual(is_ringing, False, "expected the timer NOT to be ringing 6 seconds after alarm time")
 
-if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestTimer)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+# [...]
 ```
+
+- ① Import `stime` where you would have imported `time` if it wasn't testing.
+- ② Set the current time to whatever is convenient...
+- ③ Reset it as often as needed...
+- ④ Fast-forward when convenient...
+- ⑤ or progress one second at a time!
 
 Credits
 -------
