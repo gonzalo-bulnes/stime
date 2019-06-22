@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="stime",
-    version="0.1.2",
+    version="1.0.0",
     author="Gonzalo Bulnes Guilpain",
     author_email="gon.bulnes@fastmail.com",
     description="A testing (and partial) replacement for the time package, for fully-controlled time-dependent tests.",
