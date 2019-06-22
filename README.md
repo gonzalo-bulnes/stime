@@ -1,4 +1,4 @@
-<p align='center'><img width="128" src='./vendor/noto-emoji-owl.png' alt="An owl emoji"/></p>
+<p align='center'><img width="128" src='./vendor/noto-emoji-owl.png' alt="🦉 An owl emoji"/></p>
 <h1 align='center'>Simulated Time</h1>
 
 <p align="center">A testing (and partial) replacement for Python's <code>time</code> package, for fully-controlled time-dependent tests.</p>
@@ -112,6 +112,21 @@ make build
 # And upload them to PyPI
 make upload_to_pypi
 ```
+
+Contributing
+------------
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-e7359e.svg?style=popout)](http://makeapullrequest.com)
+![Code Review Welcome](https://img.shields.io/badge/code%20review-welcome-e7359e.svg?style=popout)
+
+I am learning Python! 🎉 And this is the first package I publish! I did it very much to figure out how things work. That's to say that I'd love to hear your thoughts, maybe we can learn something together : )
+
+Whether it is your first pull request or your 100th, the [contributing guidelines][contributing] are here to help you get started!
+
+Please note that by participating in this project, you agree to abide by its [code of conduct]. That is true for pull requests, and also when participating in issues.
+
+  [contributing]: ./CONTRIBUTING.md
+  [code of conduct]: ./CODE_OF_CONDUCT.md
 
 Credits
 -------
