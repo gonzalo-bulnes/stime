@@ -21,7 +21,9 @@ Usage
 
 The idea is to make your code to use `stime.test()` instead of `time.test()` while it is being tested.
 
-Ideally, the code you want to test is receiving a time source through _dependency injection_, like the `Timer` class in the example below.
+Ideally, the code you want to test is receiving a time source through [dependency injection][di], like the `Timer` class in the example below.
+
+  [di]: https://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html
 
 If the code you are testing is not using dependency injection, it is likely that you can still override the time function in your tests. That is less elegant, but can be a fair trade-off to avoid having its test suite rely on `time.sleep()`.
 
@@ -81,15 +83,15 @@ Development
 Optionally, create a virtual environment for this project and activate it.
 
 ```bash
-python -m venv timer_venv # assuming Python 3
-. timer_venv/bin/activate
+python -m venv venv # assuming Python 3
+. venv/bin/activate
 ```
 
 Then do your thing!
 
 ```bash
-# run the example test suite:
-python test_timer.py
+# run the test suite:
+python test_stime.py
 
 # once you're done deactivate the virtual environment if you use one:
 deactivate
@@ -98,7 +100,7 @@ deactivate
 ### Release
 
 ```bash
-# Install the latest setuptools and wheel (in a virtual environment eventually)
+# Install the latest setuptools and wheel (I put them in the same virtual environment)
 pip install --upgrade setuptools wheel
 
 # Update the package version number and tag it:
@@ -119,7 +121,9 @@ Contributing
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-e7359e.svg?style=popout)](http://makeapullrequest.com)
 ![Code Review Welcome](https://img.shields.io/badge/code%20review-welcome-e7359e.svg?style=popout)
 
-I am learning Python! 🎉 And this is the first package I publish! I did it very much to figure out how things work. That's to say that I'd love to hear your thoughts, maybe we can learn something together : )
+I am [learning Python](https://github.com/gonzalo-bulnes/kata-python-web-app)! 🎉
+
+This is the first package I publish and I did it very much to figure out how things work. That's to say that I'd love to hear your thoughts, maybe we can learn something together : )
 
 Whether it is your first pull request or your 100th, the [contributing guidelines][contributing] are here to help you get started!
 
