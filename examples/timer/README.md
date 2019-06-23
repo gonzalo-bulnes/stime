@@ -25,7 +25,7 @@ pip install -r requirements.txt
 . timer_venv/bin/activate
 
 # run the example test suite:
-python test_timer.py
+python -m unittest -v
 
 # once you're done deactivate the virtual environment if you use one:
 deactivate

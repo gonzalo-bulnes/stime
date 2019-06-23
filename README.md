@@ -2,7 +2,10 @@
 <h1 align='center'>Simulated Time</h1>
 
 <p align="center">A testing (and partial) replacement for Python's <code>time</code> package, for fully-controlled time-dependent tests.</p>
-<p align="center"><a href="https://pypi.org/project/stime"><img alt="PyPI" src="https://img.shields.io/pypi/v/stime.svg" /></a></p>
+<p align="center">
+  <a href="https://pypi.org/project/stime"><img alt="PyPI" src="https://img.shields.io/pypi/v/stime.svg" /></a>
+  <a href="https://travis-ci.org/gonzalo-bulnes/stime"><img alt="Build Status" src="https://travis-ci.org/gonzalo-bulnes/stime.svg?branch=master" /></a>
+</p>
 
 <br /><br />
 
@@ -91,7 +94,7 @@ Then do your thing!
 
 ```bash
 # run the test suite:
-python test_stime.py
+python -m unittest -v
 
 # once you're done deactivate the virtual environment if you use one:
 deactivate
