@@ -94,7 +94,7 @@ Then do your thing!
 
 ```bash
 # run the test suite:
-python -m unittest -v
+python stime/test_stime.py
 
 # once you're done deactivate the virtual environment if you use one:
 deactivate
